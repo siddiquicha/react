@@ -1,27 +1,42 @@
-name: CI/CD Pipeline
+name: React CI/CD Deployment
 
 on:
-  workflow_dispatchs:
+  push:
     branches:
-      - '**'
+      - main
+  workflow_dispatch:
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      # 1️⃣ Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'npm'
 
+      # 3️⃣ Install dependencies
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
+      # 4️⃣ Run tests (optional but recommended)
       - name: Run Tests
         run: npm test -- --watchAll=false
 
-      - name: Build Project
+      # 5️⃣ Build project
+      - name: Build React App
         run: npm run build
+
+      # 6️⃣ Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
