@@ -1,11 +1,9 @@
 name: CI/CD Pipeline
 
 on:
-  push:
+  workflow_dispatchs:
     branches:
-      - develop
-      - main
-
+      - '**'
 jobs:
   build:
     runs-on: ubuntu-latest
