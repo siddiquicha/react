@@ -53,7 +53,7 @@ function ProductTable({
   filterText,
   inStockOnly,
 }: ProductTableProps) {
-  const rows: JSX.Element[] = [];
+  const rows: any[] = [];
   let lastCategory: string | null = null;
 
   products.forEach((product) => {
