@@ -54,7 +54,7 @@ function ProductTable({products, filterText, inStockOnly}){
     <table>
       <thead>
         <tr>
-          <th>Name</th>
+          <th>Product Name</th>
           <th>Price</th>
         </tr>
       </thead>
